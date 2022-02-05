@@ -3,38 +3,23 @@ pipeline {
     parameters {
     string(name: 'STACK_NAME', defaultValue: 'example-stack', description: 'Enter the CloudFormation Stack Name.')
     string(name: 'PARAMETERS_FILE_NAME', defaultValue: 'example-stack-parameters.properties', description: 'Enter the Parameters File Name (Must contain file extension type *.properties)')
-    string(name: 'TEMPLATE_NAME', defaultValue: 'S3-Bucket.yaml', description: 'Enter the CloudFormation Template Name (Must contain file extension type *.yaml)')
-    credentials(name: 'CFN_CREDENTIALS_ID', defaultValue: '', description: 'AWS Account Role.', required: true)
+    string(name: 'TEMPLATE_NAME', defaultValue: '01_s3cft.yml', description: 'Enter the CloudFormation Template File Name')
     choice(
       name: 'REGION',
       choices: [
           ' ',
           'us-east-1',
-          'us-east-2'
+          'us-east-2',
+          'us-west-2'
           ],
       description: 'AWS Account Region'
     )
-    choice(
-      name: 'ACTION',
-      choices: ['create-changeset', 'execute-changeset', 'deploy-stack', 'delete-stack'],
-      description: 'CloudFormation Actions'
-    )
-    booleanParam(name: 'TOGGLE', defaultValue: false, description: 'Are you sure you want to perform this action?')
   }
   stages {
         stage('Submit Stack') {
             steps {
              sh "aws cloudformation deploy --stack-name wordpress --template-file wordpress.json --region 'us-west-2' --parameter-overrides DBPassword=abcd1234 DBRootPassword=abcd1234 DBUser=admin KeyName=minikubetest"   
-            /*   this is an example if else loop 
-            sh '''
-                if aws cloudformation describe-stacks --stack-name wordpress --region us-west-2 &>/dev/null 
-                then
-                    aws cloudformation delete-stack --stack-name wordpress --region us-west-2
-                else
-                    aws cloudformation create-stack --stack-name wordpress --template-body file://wordpress.json --region 'us-west-2' --parameters ParameterKey=DBPassword,ParameterValue=abcd1234 ParameterKey=DBRootPassword,ParameterValue=abcd1234 ParameterKey=DBUser,ParameterValue=admin ParameterKey=KeyName,ParameterValue=minikubetest
-                fi
-                '''
-                */
+             //sh "aws cloudformation deploy --stack-name ${STACK_NAME} --template-file ${TEMPLATE_NAME} --region ${REGION} --parameter-overrides file://parameters/$PARAMETERS_FILE_NAME"      
               }
              }
             }
