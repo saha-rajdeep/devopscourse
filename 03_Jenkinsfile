@@ -1,0 +1,20 @@
+pipeline {
+  agent any
+  stages {
+    stage('Checkout Source') {
+      steps {
+        git branch: 'main', credentialsId: 'github', url: 'https://github.com/saha-rajdeep/devopscourse.git'
+      }
+    }
+  
+    stage('Deploying App to Kubernetes') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "03_deployment.yaml", kubeconfigId: "k8sclusterconfig")
+        }
+      }
+    }
+
+  }
+
+}
