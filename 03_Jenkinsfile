@@ -10,7 +10,8 @@ pipeline {
     stage('Deploying App to Kubernetes') {
       steps {
         script {
-          kubernetesDeploy(configs: "03_deployment.yaml", kubeconfigId: "k8sclusterconfig")
+          sh "kubectl get pods -A"
+          //kubernetesDeploy(configs: "03_deployment.yaml", kubeconfigId: "k8sclusterconfig")
         }
       }
     }
