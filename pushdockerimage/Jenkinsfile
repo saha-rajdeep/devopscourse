@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment{
+        DOCKERHUB_CREDS = credentials('dockerhub')
+    }
     stages {
         stage('Clone Repo') {
             steps {
@@ -10,14 +12,19 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh 'docker build -t jenkinsflaskapp:$BUILD_NUMBER ./pushdockerimage/'
+                sh 'docker build -t raj80doeckrid/jenkinstest:$BUILD_NUMBER ./pushdockerimage/'
             }
         }
-        //stage('Push Image') {
-        //    steps {
-        //        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        //        }
-        //    }
-        //}
+        stage('Docker Login') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDES_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
+                }
+            }
+        stage('Docker Push') {
+            steps {
+                sh 'docker push raj80doeckrid/jenkinstest:$BUILD_NUMBER'
+                }
+            }
+        }
     }
 }
