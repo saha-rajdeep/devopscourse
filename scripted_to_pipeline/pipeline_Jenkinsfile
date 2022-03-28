@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment{
-        DOCKERHUB_CREDS = credentials('dockerhub')
-    }
     stages {
         stage('Clone Repo') {
             steps {
@@ -15,7 +12,7 @@ pipeline {
                 //sh 'docker build -t raj80dockerid/jenkinstest ./pushdockerimage/' (this will use the tag latest)
 		        //sh 'docker build -t raj80dockerid/jenkinstest:$BUILD_NUMBER ./pushdockerimage/'
                 script {
-                    app = docker.build("raj80dockerid/jenkinstest")
+                    app = docker.build("raj80dockerid/jenkinstest","./pushdockerimage/")
                 }
             }
         }
