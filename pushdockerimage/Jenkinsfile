@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build Image') {
+            steps {
+                sh 'docker build https://github.com/docker/rootfs.git#container:docker'
+            }
+        }
+        stage('Push Image') {
+            steps {
+                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                app.push("${env.BUILD_NUMBER}")
+                }
+            }
+        }
+    }
+}
