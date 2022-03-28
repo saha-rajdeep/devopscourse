@@ -9,15 +9,14 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh 'docker build https://github.com/docker/rootfs.git#container:docker'
+                sh 'docker build -t jenkinsflaskapp:${env.BUILD_NUMBER} ./pushdockerimage/'
             }
         }
-        stage('Push Image') {
-            steps {
-                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                app.push("${env.BUILD_NUMBER}")
-                }
-            }
-        }
+        //stage('Push Image') {
+        //    steps {
+        //        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        //        }
+        //    }
+        //}
     }
 }
