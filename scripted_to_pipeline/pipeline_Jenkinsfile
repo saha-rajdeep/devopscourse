@@ -8,6 +8,7 @@ pipeline {
         }
         stage('Build Image') {
             steps {
+                echo 'Starting Build step'
                 script {
                     app = docker.build("raj80dockerid/jenkinstest","./pushdockerimage/")
                 }
