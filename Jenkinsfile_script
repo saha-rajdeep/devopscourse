@@ -13,14 +13,9 @@ pipeline {
         //}
         stage('Call Script') {
             steps {
+                sh 'chmod +x scripts/sayhello.sh'
                 sh 'scripts/sayhello.sh ${TOPIC_NAME} ${TARGET}'
             }
         }
-        //stage('Push Image') {
-        //    steps {
-        //        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        //        }
-        //    }
-        //}
     }
 }
