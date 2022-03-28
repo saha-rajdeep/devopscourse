@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh 'docker build -t jenkinsflaskapp:latest ./pushdockerimage/'
+                sh 'docker build -t jenkinsflaskapp:$BUILD_NUMBER ./pushdockerimage/'
             }
         }
         //stage('Push Image') {
