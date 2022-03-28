@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'TOPIC_NAME', defaultValue: 'DevOps', description: 'Topics to learn')
+        string(name: 'TARGET', defaultValue: 'Dream-Job', description: 'Target goal')
+    }
+
+    stages {
+        //stage('Clone Repo') {
+        //    steps {
+        //        checkout scm
+        //    }
+        //}
+        stage('Call Script') {
+            steps {
+                sh 'scripts/sayhello.sh ${TOPIC_NAME} ${TARGET}'
+            }
+        }
+        //stage('Push Image') {
+        //    steps {
+        //        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        //        }
+        //    }
+        //}
+    }
+}
