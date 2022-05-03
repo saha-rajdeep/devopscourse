@@ -9,7 +9,8 @@ pipeline {
             }
             steps {
                 sh 'python -m py_compile pythoncode/add2vals.py pythoncode/calc.py'
-                stash(name: 'compiled-results', includes: 'sources/*.py*')
+                stash(name: 'compiled-results', includes: 'pythoncode/*.py*')
+                sh 'ls -l /pythoncode'
             }
         }
         stage('Test') { 
