@@ -1,4 +1,4 @@
 output "vpc_id" {
   description = "ID of project VPC"
-  value       = module.vpc.vpc_id
+  value       = module.aws_vpc.vpc_id
 }
