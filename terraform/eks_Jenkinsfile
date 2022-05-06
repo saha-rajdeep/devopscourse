@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Terraform Repo') {
+            steps {
+                echo 'Hello World'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/aws-ia/terraform-aws-eks-blueprints.git']]])
+                        }}
+        stage('Terraform') {
+            steps {
+                sh """
+                    cd examples/eks-cluster-with-new-vpc/
+                    terraform init
+                    export AWS_REGION=us-west-2
+                    terraform plan
+                    terraform apply --auto-approve
+                """
+                input message: 'Destroy terraform resources?'
+                sh 'terraform destroy --auto-approve'
+                
+            }
+        }
+    }
+}
