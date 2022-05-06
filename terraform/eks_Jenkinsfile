@@ -7,7 +7,7 @@ pipeline {
                 echo 'Hello World'
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/aws-ia/terraform-aws-eks-blueprints.git']]])
                         }}
-        stage('Terraform') {
+        stage('Terraform provision') {
             steps {
                 sh """
                     cd examples/eks-cluster-with-new-vpc/
@@ -16,8 +16,16 @@ pipeline {
                     terraform plan
                     terraform apply --auto-approve
                 """
+            }
+        }
+        stage('License to Kill?') {
+            steps {
                 input message: 'Destroy terraform resources?'
-                sh 'terraform destroy --auto-approve'
+            }
+        }
+        stage('Search and Destroy') {
+            steps {
+                sh 'examples/eks-cluster-with-new-vpc/; terraform destroy --auto-approve'
                 
             }
         }
