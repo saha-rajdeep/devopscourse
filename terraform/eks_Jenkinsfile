@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Search and Destroy') {
             steps {
-                sh 'examples/eks-cluster-with-new-vpc/; terraform destroy --auto-approve'
+                sh 'cd examples/eks-cluster-with-new-vpc/; terraform destroy --auto-approve'
                 
             }
         }
