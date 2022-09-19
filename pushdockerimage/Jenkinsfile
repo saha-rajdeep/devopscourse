@@ -13,7 +13,6 @@ pipeline {
         stage('Build Image') {
             steps {
                 sh 'whoami'
-                sh 'sudo docker ps'
 		//sh 'docker build -t dhamareshuk/jenkinstest ./pushdockerimage/' (this will use the tag latest)
 		sh 'docker build -t dhamareshuk/jenkinstest:$BUILD_NUMBER ./pushdockerimage/'
             }
