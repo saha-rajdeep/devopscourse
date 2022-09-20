@@ -15,6 +15,7 @@ pipeline {
                 sh 'whoami'
 		//sh 'docker build -t dhamareshuk/jenkinstest ./pushdockerimage/' (this will use the tag latest)
 		sh 'docker build -t dhamareshuk/jenkinstest:$BUILD_NUMBER ./pushdockerimage/'
+                sh 'ls -lrt'
             }
         }
         stage('Docker Login') {
