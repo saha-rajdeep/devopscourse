@@ -20,9 +20,7 @@ pipeline {
         stage('Test') { 
             agent {
                 docker {
-                    image 'qnib/pytest' 
-                    sh 'pwd'
-                    sh 'ls -lrt'
+                    image 'qnib/pytest'
                 }
             }
             steps {
