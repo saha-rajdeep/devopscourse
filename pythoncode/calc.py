@@ -18,6 +18,7 @@ def conv(value):
 
 # The 'add2' function itself
 def add2(arg1, arg2):
+    print("From Calc add2 function bro")
     # Convert 'arg1' and 'arg2' to their appropriate types
     arg1conv = conv(arg1)
     arg2conv = conv(arg2)
