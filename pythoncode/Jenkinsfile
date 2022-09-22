@@ -6,6 +6,7 @@ pipeline {
             steps {
                 checkout scm
                 sh 'ls *'
+                sh '+ ls -l /home'
             }
         }    
         stage('Build') {
@@ -23,7 +24,6 @@ pipeline {
                 sh 'ls -l /home'
                 sh 'echo "using ls /"'
                 sh 'ls -l pythoncode'
-                sh 'whoami'
             }
         }
         stage('Test') { 
