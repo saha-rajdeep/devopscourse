@@ -1,6 +1,12 @@
 pipeline {
     agent none
     stages {
+        stage('Clone Repo') {
+            steps {
+                checkout scm
+                sh 'ls *'
+            }
+        }    
         stage('Build') {
             agent {
                 docker {
@@ -35,7 +41,7 @@ pipeline {
                 always {
                     junit 'test-reports/results.xml' 
                     sh 'pwd'
-                    sh 'ls /home -lrt'
+                    sh 'ls /home'
                 }
             }
         }
