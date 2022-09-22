@@ -6,7 +6,7 @@ pipeline {
             steps {
                 checkout scm
                 sh 'ls *'
-                sh '+ ls -l /home'
+                sh 'ls -l /home'
             }
         }    
         stage('Build') {
