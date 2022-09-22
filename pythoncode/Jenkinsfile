@@ -2,6 +2,7 @@ pipeline {
     agent none
     stages {
         stage('Clone Repo') {
+            agent any
             steps {
                 checkout scm
                 sh 'ls *'
