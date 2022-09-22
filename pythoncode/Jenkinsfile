@@ -4,14 +4,18 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                //    image 'python:2-alpine'
-                    image 'node:latest'
+                    image 'python:2-alpine'
+                  //  image 'node:latest'
                 }
             }
             steps {
                 sh 'python -m py_compile pythoncode/add2vals.py pythoncode/calc.py'
+                sh 'dockre'
                 stash(name: 'compiled-results', includes: 'pythoncode/*.py*')
                 sh 'pwd'
+                sh 'echo "using ls /"'
+                sh 'ls /'
+                sh 'echo "using ls /"'
                 sh 'ls -l pythoncode'
                 sh 'whoami'
             }
