@@ -1,0 +1,38 @@
+pipeline {
+    agent none
+
+    stages {
+        stage('Run Tests') {
+            parallel {
+                stage('Test On Windows on Salve Machine 1') {
+                    agent {
+                        label : "EC2_Slave1"
+                    }
+                    steps {
+                        sleep 10
+                        sh 'echo Windows tests running'
+                    }
+                    post{
+                        always { 
+                            sh 'echo windows test completed, will include junit results later here'
+                        }
+                    }
+                }
+                stage('Test On Linux Slave machine 2') {
+                    agent {
+                        label : "EC2_Slave2"
+                    }
+                    steps {
+                        sleep 15
+                        sh 'echo Linux tests running'
+                    }
+                    post{
+                        always { 
+                            sh 'echo Linux test completed, will include junit results later'
+                        }
+                    }
+                }    
+            } //parallel    
+        }
+    }
+}
