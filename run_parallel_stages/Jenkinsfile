@@ -5,7 +5,7 @@ pipeline {
             parallel {
                 stage('Test On Windows on Salve Machine 1') {
                     agent {
-                        label : "EC2_Slave1"
+                        label "EC2_Slave1"
                     }
                     steps {
                         sleep 10
@@ -19,7 +19,7 @@ pipeline {
                 }
                 stage('Test On Linux Slave machine 2') {
                     agent {
-                        label : "EC2_Slave2"
+                        label "EC2_Slave2"
                     }
                     steps {
                         sleep 15
