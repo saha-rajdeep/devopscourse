@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Submit Stack') {
             steps {
-                sh 'echo "From Staging Branch'
+                sh 'echo "From Staging Branch"'
               }
              }
             }
