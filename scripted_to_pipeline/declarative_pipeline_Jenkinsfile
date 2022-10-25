@@ -9,15 +9,15 @@ pipeline {
         stage('Build Image') {
             steps {
                 echo 'Starting Build step'
-                script {
-                    app = docker.build("raj80dockerid/jenkinstest","./pushdockerimage/")
+                script { // this section allows for enter Groovy code directly without chnaging anything
+                    app = docker.build("solkoff/jenkinstest","./pushdockerimage/")
                 }
             }
         }
         stage('Docker Push') {
             steps {
-                script{
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                script{ 
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker') {
                         app.push("${env.BUILD_NUMBER}")
         }
                 }
