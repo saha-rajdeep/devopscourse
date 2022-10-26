@@ -3,7 +3,7 @@ resource "aws_vpc" "main" {
   instance_tenancy = "default"
 
   tags = {
-    Name = "demo-vpc-terraform"
+    Name = "Jenkins-demo-vpc-terraform"
     Purpose = "Jenkins Terraform Demo"
   }
 }
