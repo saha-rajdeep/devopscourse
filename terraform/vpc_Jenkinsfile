@@ -17,11 +17,13 @@ pipeline {
                     terraform plan
                     terraform apply --auto-approve
                 """
+                stash includes: '**/terraform/*.log', name: 'logs'
                 sh 'pwd'
             }
         }
          stage('checkout Logfile') {
             steps {
+                unstash 'logs'
                 sh """
                     cd terraform
                     cat terraform.log
