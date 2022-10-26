@@ -10,12 +10,22 @@ pipeline {
         stage('Terraform Provision') {
             steps {
                 sh """
+                    TF_LOG=TRACE
+                    TF_PATH=terraform.log
                     cd terraform
                     terraform init
                     terraform plan
                     terraform apply --auto-approve
                 """
                 sh 'pwd'
+            }
+        }
+         stage('checkout Logfile') {
+            steps {
+                sh """
+                    cd terraform
+                    cat terraform.log
+                """
             }
         }
         stage('Time to Kill?') {
