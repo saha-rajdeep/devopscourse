@@ -1,0 +1,24 @@
+---
+  hosts: webserver
+  gather_facts: no
+  become: yes
+
+  tasks:
+  - name: install httpd
+    become: yes
+    yum:
+      name: httpd
+      state: latest
+  
+  - name: start and enable httpd
+    become: yes
+    ansible.builtin.service:
+      enabled: yes
+      name: httpd
+      state: restarted
+
+  - name: copy the file to the default server location
+    become: yes
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
