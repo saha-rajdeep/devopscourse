@@ -18,7 +18,7 @@ pipeline {
   stages {
         stage('Submit Stack') {
             steps {
-             //sh "cat 02_wordpress.json"
+               sh "cat 02_wordpress.json"
              //sh "aws cloudformation deploy --stack-name ${STACK_NAME} --template-file ${TEMPLATE_NAME} --region 'us-west-2' --parameter-overrides DBPassword=abcd1234 DBRootPassword=abcd1234 DBUser=admin KeyName=minikubetest"   
              //sh "aws cloudformation deploy --stack-name wordpress-test01 --template-file 02_wordpress.json --region 'us-west-2' --parameter-overrides file://02_wordpress_parameter.properties"      
              sh "aws cloudformation deploy --stack-name ${STACK_NAME} --template-file ${TEMPLATE_NAME} --region ${REGION} --parameter-overrides file://${PARAMETERS_FILE_NAME}"      
